@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHAOS — You never know who's next.</title>
+<style>
+:root{--bg:#07070a;--panel:#111116;--line:#25252e;--muted:#9696a3;--purple:#8b5cf6;--pink:#ec4899}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}
+button,input{font:inherit}.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.brand{font-size:21px;font-weight:950;letter-spacing:.18em}.online{font-size:12px;color:#9e9eaa}.dot{color:#34d399}
+.hero{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:30px}
+.hero-inner{text-align:center;max-width:900px}.eyebrow{color:#a78bfa;font-weight:800;letter-spacing:.16em;font-size:12px}
+h1{font-size:clamp(56px,11vw,120px);line-height:.85;margin:22px 0 18px;letter-spacing:-.07em}
+.hero p{color:#a5a5b0;font-size:17px;max-width:540px;margin:0 auto 30px;line-height:1.6}
+.start{background:linear-gradient(135deg,var(--purple),var(--pink));padding:17px 30px;border:0;border-radius:16px;color:#fff;font-weight:900;cursor:pointer;box-shadow:0 18px 60px #8b5cf633}
+.start:hover{transform:translateY(-2px)}
+.pills{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:25px}.pill{padding:8px 12px;border:1px solid var(--line);border-radius:99px;color:#858591;font-size:12px}
+.app{display:none;min-height:100vh}.appgrid{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:16px;padding:16px;max-width:1450px;margin:auto}
+.video{height:calc(100vh - 102px);min-height:560px;border:1px solid var(--line);border-radius:24px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 25%,#302052 0,#11111a 35%,#08080c 75%)}
+.video:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,#0009);pointer-events:none}
+.wait{position:absolute;inset:0;display:grid;place-items:center;text-align:center}.orb{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:grid;place-items:center;font-size:48px;font-weight:900;box-shadow:0 0 100px #8b5cf655;animation:pulse 2s infinite}
+@keyframes pulse{50%{transform:scale(1.05);box-shadow:0 0 130px #8b5cf666}}
+.badge{position:absolute;z-index:2;top:18px;left:18px;padding:8px 11px;border-radius:99px;background:#111118bb;border:1px solid #ffffff1c;font-size:11px}
+.event{position:absolute;z-index:3;top:18px;left:50%;transform:translateX(-50%);width:min(90%,560px);background:#101017e8;border:1px solid #ffffff1c;border-radius:18px;padding:14px 18px;text-align:center;backdrop-filter:blur(14px)}
+.event small{color:#a78bfa;font-weight:800;letter-spacing:.1em}.event b{display:block;margin-top:5px;font-size:17px}
+.controls{position:absolute;z-index:4;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;white-space:nowrap}
+.btn{border:1px solid #30303a;background:#17171e;color:#fff;border-radius:13px;padding:11px 13px;cursor:pointer;font-weight:750}.btn:hover{background:#23232d}.next{background:#7c3aed;border-color:#7c3aed}.report{color:#ff8f8f}
+.side{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:17px;display:flex;flex-direction:column;min-height:calc(100vh - 102px)}
+.side h2{margin:2px 0 3px}.sub{color:#888895;font-size:12px;margin-bottom:15px}
+.chat{flex:1;overflow:auto;display:flex;flex-direction:column;gap:9px;min-height:300px}.msg{background:#1a1a21;border-radius:13px;padding:10px 12px;font-size:13px;max-width:88%;line-height:1.4}.mine{align-self:flex-end;background:#38205d}
+.compose{display:flex;gap:7px;margin-top:11px}.compose input{flex:1;background:#18181f;border:1px solid #292932;border-radius:12px;color:#fff;padding:11px;outline:none}.compose button{background:#fff;color:#000;border:0;border-radius:12px;padding:0 15px;font-weight:850}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.stat{background:#18181f;border-radius:13px;padding:10px;text-align:center}.stat strong{display:block;font-size:16px}.stat span{color:#777784;font-size:9px}
+.modal{position:fixed;inset:0;background:#000c;display:none;place-items:center;padding:20px;z-index:20}.modalbox{width:min(430px,100%);background:#111116;border:1px solid #30303a;border-radius:22px;padding:23px}.modalbox h2{margin-top:0}.modalbox p{color:#9999a5;line-height:1.5}.modal-actions{display:flex;gap:8px}.full{flex:1}
+@media(max-width:850px){.appgrid{grid-template-columns:1fr}.video{height:68vh;min-height:480px}.side{min-height:440px}.top{padding:0 17px}.online{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand">CHAOS</div><div class="online"><span class="dot">●</span> <span id="online">12,842</span> people online</div></header>
+
+<section class="hero" id="landing">
+<div class="hero-inner">
+<div class="eyebrow">RANDOM PEOPLE · RANDOM EVENTS · ZERO EXPECTATIONS</div>
+<h1>CHAOS</h1>
+<p>You never know who's next. Jump into a random conversation and get a surprise challenge every time.</p>
+<button class="start" onclick="start()">START CHAOS →</button>
+<div class="pills"><span class="pill">🎰 Chaos Events</span><span class="pill">🌎 Random Match</span><span class="pill">⚡ Instant Next</span><span class="pill">🛡️ Report & Block</span></div>
+</div>
+</section>
+
+<section class="app" id="app">
+<div class="appgrid">
+<div class="video">
+<div class="badge" id="match">SEARCHING · RANDOM</div>
+<div class="event"><small>CHAOS EVENT</small><b id="event">Finding your next stranger…</b></div>
+<div class="wait"><div><div class="orb" id="avatar">?</div><div id="state" style="margin-top:18px;color:#aaa;font-size:13px">Finding someone...</div></div></div>
+<div class="controls">
+<button class="btn" onclick="toggle('mic')">🎙 <span id="mic">Mute</span></button>
+<button class="btn" onclick="toggle('cam')">📷 <span id="cam">Camera</span></button>
+<button class="btn report" onclick="openReport()">⚑ Report</button>
+<button class="btn next" onclick="nextMatch()">NEXT →</button>
+</div>
+</div>
+
+<aside class="side">
+<h2>Anonymous Chat</h2><div class="sub">No public profiles. Just one stranger at a time.</div>
+<div class="chat" id="chat"><div class="msg">⚡ Welcome to CHAOS.</div><div class="msg">Your challenge appears above when you match.</div></div>
+<div class="compose"><input id="input" placeholder="Say something…" onkeydown="if(event.key==='Enter')send()"><button onclick="send()">Send</button></div>
+<div class="stats"><div class="stat"><strong id="xp">0</strong><span>CHAOS XP</span></div><div class="stat"><strong id="streak">0</strong><span>STREAK</span></div><div class="stat"><strong>🔥</strong><span>LIVE</span></div></div>
+</aside>
+</div>
+</section>
+
+<div class="modal" id="reportModal"><div class="modalbox"><h2>Report this user?</h2><p>Choose a reason. In the real product, this would also disconnect the match and send the event to the moderation system.</p>
+<select id="reason" style="width:100%;background:#191920;color:#fff;border:1px solid #30303a;border-radius:11px;padding:11px;margin-bottom:14px"><option>Inappropriate behavior</option><option>Spam or scam</option><option>Harassment</option><option>Other</option></select>
+<div class="modal-actions"><button class="btn full" onclick="closeReport()">Cancel</button><button class="btn next full" onclick="submitReport()">Report & Next</button></div></div></div>
+
+<script>
+const events=["Make them laugh in 20 seconds.","Both show your weirdest talent.","Ask a question you normally wouldn't ask.","Draw the same thing in 15 seconds.","Find something near you that starts with S.","Speak for 10 seconds without saying 'I'.","Describe your dream trip using only three words.","Tell a completely harmless unpopular opinion.","You have 15 seconds: invent a superhero.","Both say one word in another language."];
+let xp=0,streak=0,muted=false,camera=true,busy=false;
+function start(){document.getElementById('landing').style.display='none';document.getElementById('app').style.display='block';nextMatch();}
+function nextMatch(){busy=true;document.getElementById('state').textContent='Finding someone...';document.getElementById('event').textContent='Finding your next stranger…';document.getElementById('match').textContent='SEARCHING · RANDOM';setTimeout(()=>{busy=false;const n=Math.floor(10000+Math.random()*89999);document.getElementById('match').textContent='MATCH #'+n+' · 🌎 RANDOM';document.getElementById('event').textContent=events[Math.floor(Math.random()*events.length)];document.getElementById('state').textContent='Connected · camera ready';document.getElementById('avatar').textContent=['A','K','R','M','S','J'][Math.floor(Math.random()*6)];xp+=10;streak++;document.getElementById('xp').textContent=xp;document.getElementById('streak').textContent=streak;document.getElementById('chat').innerHTML='<div class="msg">⚡ New stranger connected.</div><div class="msg">🎰 New CHAOS event unlocked.</div>';},650)}
+function send(){const i=document.getElementById('input');if(!i.value.trim())return;const d=document.createElement('div');d.className='msg mine';d.textContent=i.value;document.getElementById('chat').appendChild(d);i.value='';document.getElementById('chat').scrollTop=99999}
+function toggle(type){if(type==='mic'){muted=!muted;document.getElementById('mic').textContent=muted?'Unmute':'Mute'}else{camera=!camera;document.getElementById('cam').textContent=camera?'Camera':'Camera Off'}}
+function openReport(){document.getElementById('reportModal').style.display='grid'}function closeReport(){document.getElementById('reportModal').style.display='none'}function submitReport(){closeReport();nextMatch()}
+</script>
+</body>
+</html>
